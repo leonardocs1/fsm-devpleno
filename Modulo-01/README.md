@@ -2,8 +2,7 @@
 
 ### Módulo 01 - Seja Bem-vindo - Avisos Importantes
 
-Boas-vindas
-
+- Boas-vindas
 - [IMPORTANTE] Diagnóstico inicial
 - Ajude-nos a conhecê-lo melhor :)
 - Como estudar
