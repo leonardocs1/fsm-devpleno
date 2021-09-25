@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "left-pad": "^1.3.0"
+  },
+  "name": "modulo-07",
+  "version": "1.0.0",
+  "main": "async-await.js",
+  "devDependencies": {},
+  "scripts": {
+    "start": "node principal.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
