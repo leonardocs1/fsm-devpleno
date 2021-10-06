@@ -1,12 +1,12 @@
 <html>
 
 <head>
-  <title>Fullsctack Master</title>
+  <title>Fullstack Master</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-  <section>
+  <section id="principal">
     <h1>Fullstack Master</h1>
     <h2>Sobre</h2>
     <a href="pagina.html">Entre para ver</a>
@@ -14,9 +14,16 @@
     <p><a href="pure.html">PureCSS</a></p>
     <p><a href="bootstrap.html">Bootstrap</a></p>
   </section>
+
+  <div class="box">
+    <span>Texto</span>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      console.log('Content loaded')
+      console.log(document.getElementById('principal').innerHTML)
+    })
+  </script>
 </body>
-<div class="box">
-  <span>Texto</span>
-</div>
 
 </html>
