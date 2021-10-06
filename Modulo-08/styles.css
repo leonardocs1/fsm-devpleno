@@ -1,0 +1,17 @@
+body {
+  background: #efefef;
+  font-family: sans-serif;
+  margin: 20px;
+}
+
+h1 {
+  font-size: 40px;
+}
+
+h2.titulo {
+  color: red;
+}
+
+#principal {
+  border: 2px solid blue;
+}
