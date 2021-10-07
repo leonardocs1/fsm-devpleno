@@ -17,13 +17,17 @@
 
   <div class="box">
     <span>Texto</span>
+    <button id="btn" type="button">Clique aqui</button>
   </div>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      console.log('Content loaded')
-      console.log(document.getElementById('principal').innerHTML)
+      document.getElementById("btn").addEventListener("click", () => {
+        const p = document.createElement("p")
+        p.innerHTML = "Olá mundo!"
+        document.body.appendChild(p)
+      })
     })
-  </script>
+  </script>s
 </body>
 
 </html>
