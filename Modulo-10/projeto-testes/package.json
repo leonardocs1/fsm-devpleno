@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules\\.bin\\mocha --reporter spec **/*.test.js"
+    "test": "node_modules\\.bin\\mocha --reporter spec **/*.test.js",
+    "coverage": "node_modules\\.bin\\istanbul cover node_modules\\mocha\\bin\\_mocha -- --reporter spec **/*.test.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "chai": "^4.3.4",
+    "istanbul": "^0.4.5",
     "mocha": "^9.1.2",
     "sinon": "^2.4.1"
   }
