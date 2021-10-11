@@ -1,10 +1,7 @@
 const express = require('express')
 const router = express.Router()
+const clientsController = require('../controllers/clients')
 
-router.get('/list', (req, res) => {
-  res.send('Fullstack Master')
-})
-router.get('/new', (req, res) => {
-  res.send('Fullstack Master')
-})
+router.get('/list', clientsController.list)
+router.get('/new', clientsController.create)
 module.exports = router
