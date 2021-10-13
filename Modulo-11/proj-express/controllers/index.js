@@ -14,8 +14,18 @@ const calc = (req, res) => {
   }
 }
 
+const par = (req, res) => {
+  const isPar = (req.params.num % 2) === 0
+  if (isPar) {
+    res.send('O número é par')
+  } else {
+    res.send('O número é impar')
+  }
+}
+
 module.exports = {
   home,
   pagina1,
-  calc
+  calc,
+  par
 }
