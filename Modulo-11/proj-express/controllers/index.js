@@ -1,5 +1,7 @@
 const home = (req, res) => {
-  res.send('Fullstack Master')
+  res.render('home', {
+    time: new Date().getTime()
+  })
 }
 const pagina1 = (req, res) => {
   res.send('Fullstack Master')
