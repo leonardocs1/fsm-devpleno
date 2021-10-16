@@ -2,4 +2,9 @@
   <p>
     A soma é: <%= soma %>
   </p>
-  <%- include('partials/footer') %>
+  <% if(soma%2===0) { %>
+    <p>A soma é par.</p>
+    <% } else { %>
+      <p>A soma é impar.</p>
+      <% } %>
+        <%- include('partials/footer') %>
