@@ -1,6 +1,6 @@
 const home = (req, res) => {
   res.render('home', {
-    time: new Date().getTime(),
+    time: 10,
     lista: ['Tulio', 'Faria', 'Teste'],
     animais: [
       { name: 'Teca' },
@@ -20,7 +20,7 @@ const calc = (req, res) => {
     const soma = parseFloat(num1) + parseFloat(num2)
     res.render('calc', { soma })
   } else {
-    res.send('Calculadora')
+    res.render('erro')
   }
 }
 

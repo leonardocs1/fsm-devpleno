@@ -5,10 +5,22 @@ const sinon = require('sinon')
 describe('index controller', () => {
   it('home', () => {
     let res = {
-      send: function () { }
+      render: function () { }
+    }
+    let data =
+    {
+      time: 10,
+      lista: ['Tulio', 'Faria', 'Teste'],
+      animais: [
+        { name: 'Teca' },
+        { name: 'Tica' },
+        { name: 'Branca' },
+        { name: 'Tiazinha' },
+        { name: 'Bolinha' }
+      ]
     }
     let mock = sinon.mock(res)
-    mock.expects('send').once().withArgs('Fullstack Master')
+    mock.expects('render').once().withArgs('home', data)
     indexController.home({}, res)
   })
   it('pagina1', () => {
@@ -19,25 +31,17 @@ describe('index controller', () => {
     mock.expects('send').once().withArgs('Fullstack Master')
     indexController.pagina1({}, res)
   })
-  it('calc', () => {
+  it('handles without num1 and num2', () => {
     let res = {
-      send: function () { }
+      render: function () { }
     }
     let mock = sinon.mock(res)
-    mock.expects('send').once().withArgs('Calculadora')
-    indexController.calc({ query: {} }, res)
-  })
-  it('handles witout num1 and num2', () => {
-    let res = {
-      send: function () { }
-    }
-    let mock = sinon.mock(res)
-    mock.expects('send').once().withArgs('Calculadora')
+    mock.expects('render').once().withArgs('erro')
     indexController.calc({ query: {} }, res)
   })
   it('handles witout num1', () => {
     let res = {
-      send: function () { }
+      render: function () { }
     }
     let req = {
       query: {
@@ -45,12 +49,12 @@ describe('index controller', () => {
       }
     }
     let mock = sinon.mock(res)
-    mock.expects('send').once().withArgs('Calculadora')
+    mock.expects('render').once().withArgs('erro')
     indexController.calc(req, res)
   })
   it('handles witout num2', () => {
     let res = {
-      send: function () { }
+      render: function () { }
     }
     let req = {
       query: {
@@ -58,12 +62,12 @@ describe('index controller', () => {
       }
     }
     let mock = sinon.mock(res)
-    mock.expects('send').once().withArgs('Calculadora')
+    mock.expects('render').once().withArgs('erro')
     indexController.calc(req, res)
   })
   it('calcs', () => {
     let res = {
-      send: function () { }
+      render: function () { }
     }
     let req = {
       query: {
@@ -72,7 +76,7 @@ describe('index controller', () => {
       }
     }
     let mock = sinon.mock(res)
-    mock.expects('send').once().withArgs('Soma: 30')
+    mock.expects('render').once().withArgs('calc', { soma: 30 })
     indexController.calc(req, res)
   })
 })
