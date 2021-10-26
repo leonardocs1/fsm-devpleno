@@ -1,6 +1,6 @@
 # FullStack Master
 
-### Módulo 09 - Iniciando no Frontend
+### Módulo 08 - Iniciando no Frontend
 
 - Aula 01: HTML
 
