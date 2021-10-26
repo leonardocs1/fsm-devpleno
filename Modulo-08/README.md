@@ -1,6 +1,6 @@
 # FullStack Master
 
-### Módulo 09 - Iniciando no Frontend
+### Módulo 08 - Iniciando no Frontend
 
 - Aula 01: HTML
 
@@ -26,4 +26,10 @@
 
 - Projeto Prático: Conversor de Unidades
 
+<<<<<<< HEAD
 - Desafio da semana
+=======
+- Desafio da semana
+
+- Como foi seu aprendizado?
+>>>>>>> 9ccce5f59afaf3d1c294261704ba78e9b88560b5
