@@ -27,5 +27,3 @@
 - Projeto Prático: Conversor de Unidades
 
 - Desafio da semana
-
-- Como foi seu aprendizado?
