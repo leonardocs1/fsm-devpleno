@@ -8,6 +8,8 @@ admin.initializeApp({
 
 const db = admin.firestore()
 
+//----------------------------------------------------------------
+
 const categories = db.collection('categories').get()
 categories.then(snapshot => {
   console.log('is empty', snapshot.empty)

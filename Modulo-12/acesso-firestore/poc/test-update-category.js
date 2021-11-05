@@ -8,10 +8,12 @@ admin.initializeApp({
 
 const db = admin.firestore()
 
-const doc = db.collection('categories').doc()
+//----------------------------------------------------------------
+
+const doc = db.collection('categories').doc('4vFIn9D8gZQNpl92tLeM')
 doc
-  .set({
-    category: 'Category criada via codigo'
+  .update({
+    category: 'Novo nome com update'
   }).then(snap => {
     console.log(snap)
   })
