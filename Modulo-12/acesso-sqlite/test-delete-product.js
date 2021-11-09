@@ -20,11 +20,12 @@ const run = (db, query, values) => new Promise((resolve, reject) => {
   })
 })
 
-const createCategories = async () => {
+const deleteProducts = async () => {
   const db = await initDB('banco.sqlite3')
-  await run(db, `insert into categories (id, category) values (?, ?)`, [8, 'nova cat'])
-  console.log('Categories created')
+  await run(db, `delete from categories_products where product_id=?`, [8])
+  await run(db, `delete from products where id=?`, [8])
+  console.log('Products deleted!')
 }
-createCategories().catch(err => {
+deleteProducts().catch(err => {
   console.log(err)
 })

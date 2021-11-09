@@ -10,21 +10,21 @@ const initDB = databaseFile => new Promise((resolve, reject) => {
   })
 })
 
-const run = (db, query, values) => new Promise((resolve, reject) => {
-  db.run(query, values, err => {
+const run = (db, query) => new Promise((resolve, reject) => {
+  db.all(query, (err, rows) => {
     if (err) {
       reject(err)
     } else {
-      resolve()
+      resolve(rows)
     }
   })
 })
 
-const createCategories = async () => {
+const listCategories = async () => {
   const db = await initDB('banco.sqlite3')
-  await run(db, `insert into categories (id, category) values (?, ?)`, [8, 'nova cat'])
-  console.log('Categories created')
+  const categories = await run(db, `select * from categories`)
+  console.log('Ctegories read', categories)
 }
-createCategories().catch(err => {
+listCategories().catch(err => {
   console.log(err)
 })

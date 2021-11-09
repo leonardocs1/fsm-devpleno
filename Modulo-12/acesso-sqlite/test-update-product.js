@@ -20,11 +20,11 @@ const run = (db, query, values) => new Promise((resolve, reject) => {
   })
 })
 
-const createCategories = async () => {
+const updateProducts = async () => {
   const db = await initDB('banco.sqlite3')
-  await run(db, `insert into categories (id, category) values (?, ?)`, [8, 'nova cat'])
-  console.log('Categories created')
+  await run(db, `update products set product=? where id=?`, ['prod atualizada', 8])
+  console.log('Products updated!')
 }
-createCategories().catch(err => {
+updateProducts().catch(err => {
   console.log(err)
 })

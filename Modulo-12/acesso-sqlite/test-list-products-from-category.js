@@ -11,20 +11,21 @@ const initDB = databaseFile => new Promise((resolve, reject) => {
 })
 
 const run = (db, query, values) => new Promise((resolve, reject) => {
-  db.run(query, values, err => {
+  db.all(query, values, (err, rows) => {
     if (err) {
       reject(err)
     } else {
-      resolve()
+      resolve(rows)
     }
   })
 })
 
-const createCategories = async () => {
+const listProducts = async () => {
   const db = await initDB('banco.sqlite3')
-  await run(db, `insert into categories (id, category) values (?, ?)`, [8, 'nova cat'])
-  console.log('Categories created')
+  const catId = 8
+  const products = await run(db, `select * from products where id in (select product_id from categories_products where category_id = ? )`, [catId])
+  console.log('Categories read', products)
 }
-createCategories().catch(err => {
+listProducts().catch(err => {
   console.log(err)
 })
