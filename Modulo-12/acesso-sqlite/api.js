@@ -16,9 +16,10 @@ const test = async () => {
   // await products.create([1, 'test', 90])
   // await products.create([2, 'aaaa'])
   // await products.addImage(2, [3, '<url3> ', '< desc3> '])
-  // await products.update(1, ['new prod', 89])
+  // await products.updateCategories(1, [2, 3])
   // await products.remove(1)
   // console.log(await products.findAll())
-  console.log('cp: 0', await products.findAllPaginated({ pageSize: 2, currentPage: 1 }))
+  // console.log('cp: 0', await products.findAllPaginated({ pageSize: 2, currentPage: 1 }))
+  console.log(await products.findAllByCategory(3))
 }
 test()
