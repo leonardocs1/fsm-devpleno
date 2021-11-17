@@ -40,6 +40,24 @@ const init = (connection) => {
 
     return findImages(results)
   }
+
+  const findAllPaginated = async ({ pageSize = 10, currentPage = 0 } = {}) => {
+    const conn = await connection
+    const [results] = await conn.query(`select * from products limit ${currentPage * pageSize}, ${pageSize + 1}`)
+    const hasNext = results.length > pageSize
+
+    if (results.length > pageSize) {
+      results.pop()
+    }
+
+    const resultsWithImages = await findImages(results)
+
+    return {
+      data: resultsWithImages,
+      hasNext
+    }
+  }
+
   const findAllByCategory = async (categoryId) => {
     const conn = await connection
     const [results] = await conn.query('select * from products where id in (select product_id from categories_products where category_id = ? )', [categoryId])
@@ -52,12 +70,22 @@ const init = (connection) => {
     await conn.query('insert into images (product_id, description, url) values (?, ?, ?)', [productId, ...data])
   }
 
+  const updateCategories = async (productId, categoryIds) => {
+    const conn = await connection
+    await conn.query('delete from categories_products where product_id = ?', [productId])
+    for await (const categoryId of categoryIds) {
+      await conn.query('insert into categories_products (category_id, product_id) values (?, ?)', [categoryId, productId])
+    }
+  }
+
   return {
     create,
     remove,
     update,
+    updateCategories,
     findAll,
     findAllByCategory,
+    findAllPaginated,
     addImage
   }
 }

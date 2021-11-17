@@ -9,7 +9,9 @@ const test = async () => {
   // const cats = await categories.findAll()
   // console.log(cats)
   // await products.addImage(3, ['img test', 'url'])
-  const prods = await products.findAllByCategory(1)
+  // const prods = await products.findAllByCategory(1)
+  await products.updateCategories(3, [1])
+  const prods = await products.findAllPaginated()
   console.log(prods)
 }
 test()
