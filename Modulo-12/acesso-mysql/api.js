@@ -10,12 +10,12 @@ const test = async () => {
   // console.log(cats)
   // await products.addImage(3, ['img test', 'url'])
   // const prods = await products.findAllByCategory(1)
-  // await products.updateCategories(3, [1])
+  await products.updateCategories(3, [6])
   // const prods = await products.findAllPaginated()
   // console.log(prods)
 
-  for (let i = 0; i < 1000; i++) {
-    products.findAllPaginated().then(prods => console.log(prods))
-  }
+  //   for (let i = 0; i < 1000; i++) {
+  //     products.findAllPaginated().then(prods => console.log(prods))
+  //   }
 }
 test()

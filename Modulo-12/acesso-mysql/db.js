@@ -12,7 +12,7 @@ module.exports = mysql.createPool({
   host: 'localhost',
   user: 'root',
   database: 'cat-products',
-  waitForConnection: true,
+  // waitForConnection: true,
   connectionLimit: 20,
   queueLimit: 0
 })
