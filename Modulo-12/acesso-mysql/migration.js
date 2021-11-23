@@ -29,7 +29,14 @@ const migration = async () => {
   await initMigration(connection)
 
   const currentVersion = await getCurrentVersion(connection)
-  const targetVersion = 1000
+  // paraments
+  let targetVersion = 1000
+  if (process.argv.length > 2) {
+    if (process.argv[2] === '--target-version' && process.argv[3]) {
+      targetVersion = parseInt(process.argv[3])
+    }
+  }
+  console.log('Migrating to: ', targetVersion)
 
   const migrations = fs.readdirSync('./migrations')
   const migrationSorted = migrations
@@ -43,57 +50,42 @@ const migration = async () => {
       }
       return -1
     })
+
+  const migrationSorted2 = [...migrationSorted].sort((a, b) => {
+    if (a > b) {
+      return -1
+    }
+    return 1
+  })
+
+  // up 
   for await (const migration of migrationSorted) {
     if (migration > currentVersion && targetVersion >= migration) {
       const m = require('./migrations/' + migration + '.js')
       await connection.query('START TRANSACTION;')
       if (m.up) {
         await m.up(connection)
+        console.log('Migration UP:', migration)
       }
       await connection.query('update migration_version set version = ? where id = ?', [migration, 1])
       await connection.query('COMMIT;')
     }
   }
 
-  /*
-  const versao1 = [
-    `
-    CREATE TABLE categories (
-      id INT NOT NULL AUTO_INCREMENT,
-      category VARCHAR(250) NULL DEFAULT NULL,
-      PRIMARY KEY (id)
-    );
-    CREATE TABLE products (
-      id INT NOT NULL AUTO_INCREMENT,
-      product VARCHAR(250) NULL DEFAULT NULL,
-      price FLOAT,
-      PRIMARY KEY (id)
-    );
-    CREATE TABLE images (
-      id INT NOT NULL AUTO_INCREMENT,
-      description TEXT NULL DEFAULT NULL,
-      url VARCHAR(500) NULL DEFAULT NULL,
-      product_id INT NOT NULL,
-      PRIMARY KEY (id),
-      KEY fk_images_products_index (product_id),
-      CONSTRAINT fk_images_products_constraint FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE ON UPDATE CASCADE
-    );
-    CREATE TABLE categories_products (
-      product_id INT NOT NULL,
-      category_id INT NOT NULL,
-      KEY fk_categories_products_index (product_id, category_id),
-      CONSTRAINT fk_categories_products_constraint1 FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE ON UPDATE CASCADE,
-      CONSTRAINT fk_categories_products_constraint2 FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE ON UPDATE CASCADE
-    )
-    `
-  ]
-  const versao1Undo = [
-    `
-    DROP TABLE categories;
-    DROP TABLE products;
-    DROP TABLE images;
-  `
-  ]
-  */
+  // down
+  for await (const migration of migrationSorted2) {
+    if (migration <= currentVersion && targetVersion < migration) {
+      const m = require('./migrations/' + migration + '.js')
+      await connection.query('START TRANSACTION;')
+      if (m.down) {
+        await m.down(connection)
+        console.log('Migration DOWN:', migration)
+      }
+      const currentMigration = migrationSorted2[migrationSorted2.indexOf(migration) + 1] || 0
+      await connection.query('update migration_version set version = ? where id = ?', [currentMigration, 1])
+      await connection.query('COMMIT;')
+    }
+  }
+  await connection.close()
 }
 migration()

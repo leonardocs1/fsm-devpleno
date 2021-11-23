@@ -1,5 +1,4 @@
 const up = async (connection) => {
-  console.log('version 1 - up')
   await connection.query(`
     CREATE TABLE categories (
       id INT NOT NULL AUTO_INCREMENT,
@@ -37,7 +36,6 @@ const up = async (connection) => {
   `)
 }
 const down = async (connection) => {
-  console.log('version 1 - down')
   await connection.query(`DROP TABLE categories_products;`)
   await connection.query(`DROP TABLE images;`)
   await connection.query(`DROP TABLE products;`)
