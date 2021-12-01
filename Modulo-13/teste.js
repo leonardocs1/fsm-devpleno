@@ -24,7 +24,8 @@ Pessoa.hasMany(Projeto)
 Projeto.belongsTo(Pessoa)
 
 const testDB = async() => {
-  await sequelize.sync({force: true})
+  await sequelize.sync()
+  /*
   const pessoa = await Pessoa.create({
     nome: 'Tulio Faria',
     nascimento: '1985-08-04'
@@ -38,5 +39,17 @@ const testDB = async() => {
   //   usuario: 'Tulio Faria',
   //   senha: '123456'
   // })
+  */
+ /*const usuarios = await Usuario.findAll()
+ const pessoas = await Promise.all(usuarios.map( async u => {
+   return await u.getPessoa()
+ }))
+ console.log(pessoas)*/
+ const usuarios = await Usuario.findAll({
+   include: [
+     {model: Pessoa}
+   ]
+ })
+ console.log(usuarios)
 }
 testDB()
