@@ -17,7 +17,7 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
 
-model.sequelize.sync().then(() => {
+model.sequelize.sync({force: true}).then(() => {
   app.listen(port, () => {
     console.log('CRUD-ORM Listening...')
   })
