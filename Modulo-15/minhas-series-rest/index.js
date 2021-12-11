@@ -1,12 +1,18 @@
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 3000
+const mongo = process.env.MONGO || 'mongodb://localhost/minhas-series-rest'
 
-const series = [
-  { name: 'Friends' },
-  { name: 'Breaking Bad' }
-]
+const mongoose = require('mongoose')
+mongoose.Promise = global.Promise
 
-app.get('/series', (req, res) => res.send(series))
+const series = require('./routes/series')
 
-app.listen(port, () => console.log('listening on port: ' + port))
+app.use('/series', series)
+
+mongoose
+  .connect(mongo, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    app.listen(port, () => console.log('listening on port: ' + port))
+  })
+  .catch(err => console.log(err))
