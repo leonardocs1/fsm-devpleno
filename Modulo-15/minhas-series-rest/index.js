@@ -3,6 +3,12 @@ const app = express()
 const port = process.env.PORT || 3000
 const mongo = process.env.MONGO || 'mongodb://localhost/minhas-series-rest'
 
+// bodyParser
+app.use(express.json());
+app.use(express.urlencoded({
+  extended: true
+}))
+
 const mongoose = require('mongoose')
 mongoose.Promise = global.Promise
 
