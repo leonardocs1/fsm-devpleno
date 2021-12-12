@@ -16,8 +16,10 @@ const mongoose = require('mongoose')
 mongoose.Promise = global.Promise
 
 const series = require('./routes/series')
+const users = require('./routes/users')
 
 app.use('/series', series)
+app.use('/users', users)
 
 app.post('/auth', async (req, res) => {
   const user = req.body
