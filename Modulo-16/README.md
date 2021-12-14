@@ -1,4 +1,4 @@
-### Módulo 17 - Iniciando em RestAPIs - Auth e CORS
+### Módulo 16 - Iniciando em RestAPIs - Auth e CORS
 
 - Aula 01 - Autenticação com JWT - parte 1
 
