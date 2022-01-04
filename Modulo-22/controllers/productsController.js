@@ -10,16 +10,35 @@ const remove = async (req, res) => {
 
 const patch = async (req, res) => {
   const oldProduct = await Product.findAllById(req.params.id)
-  if (req.body.product) {
-    oldProduct.product = req.body.product
+  if (!oldProduct) {
+    res.send({
+      success: false,
+      message: 'Product not found'
+    })
+  } else {
+    if (req.body.product) {
+      oldProduct.product = req.body.product
+    }
+    if (req.body.price) {
+      oldProduct.price = req.body.price
+    }
+    await Product.update(req.params.id, [oldProduct.product, oldProduct.price])
+
+    if (req.body.categories) {
+      // atualiza categories
+      try {
+        await Product.updateCategories(req.params.id, req.body.categories)
+      } catch (err) {
+        res.send({
+          success: false,
+          message: 'Categories not found'
+        })
+      }
+    }
+    res.send({
+      sucess: true
+    })
   }
-  if (req.body.price) {
-    oldProduct.price = req.body.price
-  }
-  await Product.update(req.params.id, [oldProduct.product, oldProduct.price])
-  res.send({
-    sucess: true
-  })
 }
 
 const put = async (req, res) => {
@@ -33,7 +52,6 @@ const put = async (req, res) => {
 const create = async (req, res) => {
   const { product, price } = req.body
   await Product.create([product, price])
-  console.log(req.body)
   res.send({
     sucess: true,
     data: req.body
@@ -48,7 +66,12 @@ const getById = async (req, res) => {
 }
 
 const getAll = async (req, res) => {
-  const products = await Product.findAll()
+  let products = null
+  if (req.query.categoryId) {
+    products = await Product.findAllByCategory(req.query.categoryId)
+  } else {
+    products = await Product.findAll()
+  }
   res.send({
     products
   })
