@@ -8,10 +8,12 @@ const init = connection => {
     const conn = await connection
     await conn.query('delete from products where id = ? limit 1', [id])
   }
+
   const update = async (id, data) => {
     const conn = await connection
     await conn.query('update products set product = ?, price = ? where id = ?', [...data, id])
   }
+
   const findImages = async (results) => {
     if (results.length === 0) {
       return []
@@ -34,17 +36,20 @@ const init = connection => {
     })
     return products
   }
+
   const findAll = async () => {
     const conn = await connection
     const [results] = await conn.query('select * from products')
     return findImages(results)
   }
+
   const findAllById = async (id) => {
     const conn = await connection
     const [results] = await conn.query('select * from products where id = ' + id)
     const productWithImagens = await findImages(results)
     return productWithImagens[0]
   }
+
   const findAllPaginated = async ({ pageSize = 10, currentPage = 0 } = {}) => {
     const conn = await connection
     const [results] = await conn.query(`select * from products limit ${currentPage * pageSize}, ${pageSize + 1}`)
@@ -60,15 +65,23 @@ const init = connection => {
       hasNext
     }
   }
+
   const findAllByCategory = async (categoryId) => {
     const conn = await connection
     const [results] = await conn.query('select * from products where id in (select product_id from categories_products where category_id = ?)', [categoryId])
     return findImages(results)
   }
+
   const addImage = async (productId, data) => {
     const conn = await connection
     await conn.query('insert into images (product_id, description, url) values (?,?,?)', [productId, ...data])
   }
+
+  const removeImage = async (productId, imageId) => {
+    const conn = await connection
+    await conn.query('delete from images where product_id = ? and id = ?', [productId, imageId])
+  }
+
   const updateCategories = async (productId, categoryIds) => {
     const conn = await connection
     await conn.query('START TRANSACTION')
@@ -88,7 +101,8 @@ const init = connection => {
     findAllPaginated,
     findAllByCategory,
     findAllById,
-    addImage
+    addImage,
+    removeImage
   }
 }
 module.exports = init

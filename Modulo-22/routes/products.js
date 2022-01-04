@@ -14,4 +14,8 @@ router.get('/', productsController.getAll)
 
 router.post('/', productsController.create)
 
+router.post('/:id/images', productsController.createImage)
+
+router.delete('/:productId/images/:id', productsController.removeImage)
+
 module.exports = router
