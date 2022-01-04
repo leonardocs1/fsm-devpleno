@@ -1,28 +1,32 @@
 const db = require('../db')
 const Product = require('../models/product')(db)
 
-const remove = (req, res) => {
+const remove = async (req, res) => {
+  await Product.remove(req.params.id)
   res.send({
-    sucess: true,
-    data: 'id' + req.params.id
+    sucess: true
   })
 }
 
-const patch = (req, res) => {
-  // alterar produtos - somente alguns campos
-  console.log(req.body)
+const patch = async (req, res) => {
+  const oldProduct = await Product.findAllById(req.params.id)
+  if (req.body.product) {
+    oldProduct.product = req.body.product
+  }
+  if (req.body.price) {
+    oldProduct.price = req.body.price
+  }
+  await Product.update(req.params.id, [oldProduct.product, oldProduct.price])
   res.send({
-    sucess: true,
-    data: req.body
+    sucess: true
   })
 }
 
-const put = (req, res) => {
-  // alterar products
-  console.log(req.body)
+const put = async (req, res) => {
+  const { product, price } = req.body
+  await Product.update(req.params.id, [product, price])
   res.send({
-    sucess: true,
-    data: req.body
+    sucess: true
   })
 }
 
@@ -36,9 +40,10 @@ const create = async (req, res) => {
   })
 }
 
-const getById = (req, res) => {
+const getById = async (req, res) => {
+  const product = await Product.findAllById(req.params.id)
   res.send({
-    name: 'Product 1'
+    product
   })
 }
 
