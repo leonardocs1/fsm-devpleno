@@ -8,6 +8,8 @@ type Query {
   }
   type Mutation {
     createProduct(input: ProductInput): Product
+    updateProduct(id: String!, input: ProductUpdateInput): Product
+    deleteProduct(id: String!): Boolean
   }
   input ProductFilter {
     categoryId: String
@@ -15,4 +17,9 @@ type Query {
   input ProductInput {
     product: String!
     price: Float!
+  }
+  input ProductUpdateInput {
+    product: String
+    price: Float
+    categories: [String]
   }
