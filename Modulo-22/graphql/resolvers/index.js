@@ -1,4 +1,4 @@
-const { getAllProducts, createProduct, deleteProduct, updateProduct } = require('./products')
+const { getAllProducts, createProduct, deleteProduct, updateProduct, createImageOnProduct, deleteImageOnProduct } = require('./products')
 const resolvers = {
   Query: {
     getAllProducts
@@ -6,7 +6,9 @@ const resolvers = {
   Mutation: {
     createProduct,
     deleteProduct,
-    updateProduct
+    updateProduct,
+    createImageOnProduct,
+    deleteImageOnProduct
   }
 }
 module.exports = resolvers
