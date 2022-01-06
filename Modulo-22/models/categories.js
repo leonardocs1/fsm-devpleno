@@ -20,11 +20,17 @@ const init = connection => {
     return results
   }
 
+  const findAllById = async (id) => {
+    const conn = await connection
+    const [results] = await conn.query('select * from categories where id = ' + id)
+  }
+
   return {
     create,
     remove,
     update,
-    findAll
+    findAll,
+    findAllById
   }
 }
 module.exports = init
