@@ -34,12 +34,16 @@ for (let i = 0; i < 300; i++) {
 const printer = new PdfPrinter(fonts)
 const docDefinition = {
   content: [
+    {
+      image: 'images/logo.png',
+      fit: [80, 100]
+    },
     { text: 'Fullstack Master' },
     {
       table: {
         widths: ['*', '*', 100],
         body: lines
-      }
+      },
     }
   ],
   styles: {
@@ -50,6 +54,22 @@ const docDefinition = {
     inativo: {
       fontSize: 14,
       bold: true
+    },
+  },
+  footer: (page, pages) => {
+    return {
+      columns: [
+        'Este documento é parte integrante do Fullstack Master',
+        {
+          alignment: 'right',
+          text: [
+            { text: page.toString(), italics: true },
+            'de',
+            { text: pages.toString(), italics: true }
+          ]
+        }
+      ],
+      margin: [40, 0]
     }
   }
 }
