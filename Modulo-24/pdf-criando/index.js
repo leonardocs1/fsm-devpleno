@@ -1,5 +1,4 @@
 const PdfPrinter = require('pdfmake')
-
 const fonts = {
   Roboto: {
     normal: 'fonts/Roboto-Regular.ttf',
@@ -8,6 +7,9 @@ const fonts = {
     bolditalics: 'fonts/Roboto-BoldItalic.ttf'
   }
 }
+
+const express = require('express')
+const app = express()
 
 const lines = []
 lines.push([
@@ -74,7 +76,19 @@ const docDefinition = {
   }
 }
 
-const pdf = printer.createPdfKitDocument(docDefinition)
+app.get('/get/:name', (req, res) => {
+  const pdf = printer.createPdfKitDocument({
+    content: 'Olá' + req.params.name
+  })
+  res.header('Content-disposition', 'inline; filename=' + req.params.name)
+  res.header('Content-type', 'application/pdf')
+  pdf.pipe(res)
+  pdf.end()
+})
+
+/*const pdf = printer.createPdfKitDocument(docDefinition)
 const fs = require('fs')
 pdf.pipe(fs.createWriteStream('doc.pdf'))
-pdf.end()
+pdf.end()*/
+
+app.listen(3000, () => console.log('PDF is running'))
