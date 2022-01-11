@@ -1,0 +1,5 @@
+const bcrypt = require('bcryptjs')
+const salt = bcrypt.genSaltSync(10)
+const hash = bcrypt.hashSync('abc123abc', salt)
+console.log(salt, hash)
+console.log(bcrypt.compareSync('abc123abc', hash))
