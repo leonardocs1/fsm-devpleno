@@ -1,5 +1,6 @@
 const db = require('../db')
 const Product = require('../models/product')(db)
+const jwt = require('jsonwebtoken')
 
 const remove = async (req, res) => {
   await Product.remove(req.params.id)
@@ -82,14 +83,27 @@ const getById = async (req, res) => {
 }
 
 const getAll = async (req, res) => {
-  let products = null
-  if (req.query.categoryId) {
-    products = await Product.findAllByCategory(req.query.categoryId)
-  } else {
-    products = await Product.findAll()
+  if (req.headers && req.headers.authorization) {
+    const secret = 'leonardocs1'
+    const header = req.headers.authorization
+    const headerParts = header.split(' ')
+    try {
+      jwt.verify(headerParts[1], secret)
+      let products = null
+      if (req.query.categoryId) {
+        products = await Product.findAllByCategory(req.query.categoryId)
+      } else {
+        products = await Product.findAll()
+      }
+      return res.send({
+        products
+      })
+    } catch (err) {
+
+    }
   }
   res.send({
-    products
+    error: 'wrong token'
   })
 }
 
