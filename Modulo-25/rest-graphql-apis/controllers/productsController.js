@@ -83,27 +83,15 @@ const getById = async (req, res) => {
 }
 
 const getAll = async (req, res) => {
-  if (req.headers && req.headers.authorization) {
-    const secret = 'leonardocs1'
-    const header = req.headers.authorization
-    const headerParts = header.split(' ')
-    try {
-      jwt.verify(headerParts[1], secret)
-      let products = null
-      if (req.query.categoryId) {
-        products = await Product.findAllByCategory(req.query.categoryId)
-      } else {
-        products = await Product.findAll()
-      }
-      return res.send({
-        products
-      })
-    } catch (err) {
-
-    }
+  console.log(res.locals.user)
+  let products = null
+  if (req.query.categoryId) {
+    products = await Product.findAllByCategory(req.query.categoryId)
+  } else {
+    products = await Product.findAll()
   }
   res.send({
-    error: 'wrong token'
+    products
   })
 }
 

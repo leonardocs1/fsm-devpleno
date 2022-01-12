@@ -1,8 +1,11 @@
 const express = require('express')
 const router = express.Router()
 const productsController = require('../controllers/productsController')
+const needsAuth = require('../utils/auth')
+
 
 //product
+router.use(needsAuth)
 router.delete('/:id', productsController.remove)
 router.patch('/:id', productsController.patch)
 router.put('/:id', productsController.put)
