@@ -1,6 +1,5 @@
 const db = require('../db')
 const Product = require('../models/product')(db)
-const jwt = require('jsonwebtoken')
 
 const remove = async (req, res) => {
   await Product.remove(req.params.id)
