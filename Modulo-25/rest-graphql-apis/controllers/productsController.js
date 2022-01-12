@@ -99,7 +99,6 @@ const getAll = async (req, res) => {
         products
       })
     } catch (err) {
-
     }
   }
   res.send({
