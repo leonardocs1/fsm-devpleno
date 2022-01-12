@@ -1,6 +1,11 @@
-class Funcionario {
-  nome: string;
-}
+import * as Express from 'express'
 
-let func1: Funcionario
-func1 = new Funcionario()
+const app: Express.Application = Express()
+
+app.get('/', (req: Express.Request, res: Express.Response) => {
+  res.send('teste')
+})
+
+app.listen(8080, () => {
+  console.log('running')
+})
