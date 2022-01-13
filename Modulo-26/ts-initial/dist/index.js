@@ -1,10 +1,13 @@
 "use strict";
-exports.__esModule = true;
-var Express = require("express");
-var app = Express();
-app.get('/', function (req, res) {
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const app = (0, express_1.default)();
+app.get('/', (req, res) => {
     res.send('teste');
 });
-app.listen(8080, function () {
-    console.log('running');
+app.listen(8080, () => {
+    console.log('running new version');
 });
